@@ -14,35 +14,19 @@ def print_graph(g) :
 		print()
 	print()
 
-def find_vertex(g, city) :
-	stack = list()
-	visited_cities = list()
 
-	i = 0
-	stack.append(i)
-	visited_cities.append(i)
+def dfs(g, current, visited):
+    visited.append(current)
+    for vertex in range(graph_size):
+        if g.graph[current][vertex] > 0 and vertex not in visited:
+            dfs(g, vertex, visited)
 
-	while stack:
-		next = None
-		for j in range(graph_size):
-			if g.graph[i][j] != 0:
-				if j in visited_cities:
-					pass
-				else:
-					next = j
-					break
 
-		if next is not None:
-			i = next
-			stack.append(i)
-			visited_cities.append(i)
-		else :
-			i = stack.pop()
-
-	if city in visited_cities:
-		return True
-	else :
-		return False
+def find_vertex(g, city):
+    # visited_cities = [False for _ in range(graph_size)]
+    visited_cities = list()
+    dfs(g, 0, visited_cities)
+    return city in visited_cities
 
 
 g1 = None
